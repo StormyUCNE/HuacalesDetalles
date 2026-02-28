@@ -1,4 +1,6 @@
 using HuacalesDetalles.Components;
+using HuacalesDetalles.DAL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-var SqlCon = builder.Configuration.GetConnectionString("SqlConStr");
+var ConStr = builder.Configuration.GetConnectionString("SqlConStr");
+builder.Services.AddDbContextFactory<Contexto>(e => e.UseSqlServer(ConStr));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
